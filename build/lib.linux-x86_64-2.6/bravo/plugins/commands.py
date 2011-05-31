@@ -392,50 +392,6 @@ class GetPos(object):
     usage = ""
     info = "Hey0 /getpos"
 
-class Teleport(object):
-
-    implements(IChatCommand)
-    
-    def chat_command(self, username, parameters):
-        p = parse_player(factory, username)
-        if len(parameters) == 0:
-            msg = "not enough parameters..."
-            return (msg,)
-        else:
-            try: to_player = parse_player(factory, parameters[0])
-            except: return "Player %s is nonexistant!" % (parameters[0])
-            new_loc = to_player.player.location
-            p.player.location.x = new_loc.x
-            p.player.location.y = new_loc.y
-            p.player.location.z = new_loc.z
-            msg = "Teleported to %s <%s, %s, %s>" % (parameters[0], new_loc.x, new_loc.y, new_loc.z)
-            return msg
-            
-    name = "tp"
-    aliases = ("teleport",)
-    usage = "<nickname>"
-    info = "Teleport to another player"
-    
-class Nick(object):
-
-    implements(IChatCommand)
-
-    def chat_command(self, username, parameters):
-        player = parse_player(factory, username)
-        if len(parameters) == 0:
-            return ("Usage: /nick <nickname>",)
-        else:
-            new = parameters[0]
-        if factory.set_username(player, new):
-            return ("Changed nickname from %s to %s" % (username, new),)
-        else:
-            return ("Couldn't change nickname!",)
-
-    name = "nick"
-    aliases = tuple()
-    usage = "<nickname>"
-    info = "Set a new nickname"
-
 help = Help()
 list = List()
 time = Time()
@@ -450,5 +406,3 @@ season = Season()
 me = Me()
 kick = Kick()
 getpos = GetPos()
-nick = Nick()
-teleport = Teleport()

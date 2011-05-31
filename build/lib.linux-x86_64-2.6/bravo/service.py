@@ -46,7 +46,6 @@ class BravoService(MultiService):
                 server.setName(factory.name)
                 self.addService(server)
                 self.factorylist.append(factory)
-                log.msg("loaded configuration for world %s" % (section[6:]))
             elif section == "web":
                 try:
                     from bravo.web import bravo_site
@@ -58,7 +57,6 @@ class BravoService(MultiService):
                     server = TCPServer(port, factory)
                     server.setName("web")
                     self.addService(server)
-                    log.msg("started web service")
             elif section.startswith("irc "):
                 try:
                     from bravo.irc import BravoIRC
@@ -67,7 +65,6 @@ class BravoService(MultiService):
                 else:
                     self.irc = True
                     self.ircbots.append(section)
-                    log.msg("started irc service for %s" % (section[4:]))
             elif section.startswith("infiniproxy "):
                 factory = BetaProxyFactory(section[12:])
                 server = TCPServer(factory.port, factory)
